@@ -3,15 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
+
   "scripts": {
     "start": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Afrin Jaman",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.1"
+    "-": "^0.0.1",
+    "cors": "2.8.1",
+    "express": "^4.18.1",
+    "mssql": "6.2.1",
+    "save": "^2.5.0",
+    "sequelize": "^6.20.1",
+    "sequelize-auto": "^0.8.8",
+    "tedious": "^14.5.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"

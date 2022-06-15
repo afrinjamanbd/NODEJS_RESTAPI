@@ -1,21 +1,41 @@
-import express from "express";
-import bodyParser from 'body-parser';
-import usersROutes from './routes/user.js';
+var Db  = require('./dboperations');
+var Order = require('./model');
+const dboperations = require('./dboperations');
 
-const app = express();
+var express = require('express');
+var bodyParser = require('body-parser');
+var cors = require('cors');
+var app = express();
+var router = express.Router();
 
-const PORT = 5000;
-
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-app.use('/', usersROutes);
+app.use(cors());
+app.use('/api', router);
 
 app.get('/',(req,res)=>{
     console.log('TEST!!!');
     res.send('HOMEPAGE');
 });
 
-app.listen(PORT,( )=> console.log(`Serer Running on port: ${PORT}`));
+router.route('/teams').get((request,response)=>{
+    
+    dboperations.getmodels().then(result => {
+        response.json(result[0]);
+    })
+})
+
+var port = process.env.PORT || 8090;
+app.listen(port);
+console.log('API is runnning at ' + port);
+
+
+
+// dboperations.getmodels().then(result =>{
+//     console.log(result);
+// });
+
+
   
 // ├── package.json
 // ├── client
