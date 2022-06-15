@@ -1,6 +1,7 @@
 var config = require('./dbconfig');
 const sql = require('mssql');
 
+
 async  function get_anonymous(){
     try{
         let pool = await sql.connect(config);
