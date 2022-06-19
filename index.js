@@ -18,33 +18,46 @@ app.get('/',(req,res)=>{
     res.send('HOMEPAGE');
 });
 
+// app.get('/page', function(req, res) { 
+//     res.render("index");
+// });
+
 router.route('/teams').get((request,response)=>{
 
     dboperations.get_all_teams().then(result => {
         response.json(result[0]);
+       // response.render('index.html',response.json(result[0]));
     })
-})
+    
+});
 
 router.route('/childid').get((request,response)=>{
     
     dboperations.get_team_dropdown().then(result => {
         response.json(result[0]);
     })
-})
+});
 
 router.route('/join').get((request,response)=>{
     
     dboperations.get_join().then(result => {
         response.json(result[0]);
     })
-})
+});
 
 router.route('/random').get((request,response)=>{
     console.log('random called');
     dboperations.get_anonymous().then(result => {
         response.json(result[0]);
     })
-})
+});
+
+router.route('/nested').get((request,response)=>{
+    console.log('nested called');
+    dboperations.get_nested().then(result => {
+        response.json(result);
+    });
+});
 
 var port = process.env.PORT || 8090;
 app.listen(port);

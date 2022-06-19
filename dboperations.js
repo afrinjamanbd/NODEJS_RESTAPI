@@ -58,11 +58,41 @@ async  function get_join(){
     }   
 }
 
+async  function get_nested(){
+    try{
+        
+        let pool = await sql.connect(config);
+        let products = await pool.request().query(`SELECT TOP (20) [id]
+        ,[TeamCode]
+        ,[ASMCode]
+        ,[ASMName]
+        ,[RSMCode]
+        ,[RSMName]
+        ,[Region]
+        ,[DSMCode]
+        ,[DSMName] from DS_ALL_Managers`);
+        obj = products.recordset;
+
+        var count = Object.keys(obj).length;
+        for (let i = 0; i < count; i++) {
+            myobj = obj[i]
+            let nest_obj = await pool.request().query(`SELECT TOP (20) [PSOCode],[PSOName] from DS_ALL_Managers where [DSMCode] = '${myobj['DSMCode']}'`);
+            myobj["DSMLIST"] = nest_obj.recordsets;
+            console.log(myobj);
+        }
+
+        return obj;
+    }
+    catch(error){
+        console.log(error);
+    }   
+}
 
 module.exports = {
     get_team_dropdown : get_team_dropdown,
     get_all_teams : get_all_teams,
     get_anonymous : get_anonymous,
-    get_join :get_join
+    get_join :get_join,
+    get_nested : get_nested
 }
 
