@@ -1,8 +1,8 @@
 const config = {
     user :'sa',
-    password :'B@ngl@desh123@',
-    server:'192.168.0.26',
-    database:'datascience',
+    password :'password@',
+    server:'DATA-RF21492L',
+    database:'ML',
     options:{
         trustedconnection: true,
         enableArithAbort : true, 

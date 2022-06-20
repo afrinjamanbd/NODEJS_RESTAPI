@@ -59,6 +59,16 @@ router.route('/nested').get((request,response)=>{
     });
 });
 
+router.route('/new').post((request,response)=>{
+
+    let order = {...request.body}
+
+    dboperations.addData(order).then(result => {
+       response.status(201).json(result);
+    })
+
+})
+
 var port = process.env.PORT || 8090;
 app.listen(port);
 console.log('API is runnning at ' + port);
