@@ -5,7 +5,7 @@ const sql = require('mssql');
 async  function get_anonymous(){
     try{
         let pool = await sql.connect(config);
-        let products = await pool.request().query("SELECT * from auth_user");
+        let products = await pool.request().query("SELECT  TOP (1000) * from [AllManagers]");
         return products.recordsets;
     }
     catch(error){
@@ -88,48 +88,25 @@ async  function get_nested(){
     }   
 }
 
-async function addData(tblSalesDetail) {
+
+async function addData(AllManagers) {
 
     try {
         let pool = await sql.connect(config);
         let insertProduct = await pool.request()
-            // .input('MemoNo',sql.VarChar , tblSalesDetail.MemoNo)
-            // .input('MemoType',sql.VarChar , tblSalesDetail.MemoType)
-            // .input('DepotCode',sql.VarChar , tblSalesDetail.DepotCode)
-            // .input('ProductCode',sql.VarChar , tblSalesDetail.ProductCode)
-            // .input('TradePrice',sql.Float , tblSalesDetail.TradePrice)
-            // .input('ProductVAT',sql.Float , tblSalesDetail.ProductVAT)
-            // .input('Quantity',sql.Float ,  tblSalesDetail.Quantity)
-            // .input('TradeAmount',sql.Float , tblSalesDetail.TradeAmount)
-            // .input('VATAmount',sql.Float , tblSalesDetail.VATAmount)
-            // .input('DiscountAmount',sql.Float , tblSalesDetail.DiscountAmount)
-            // .input('FlatRate',sql.Float , tblSalesDetail.FlatRate)
-            // .input('FMax',sql.Float , tblSalesDetail.FMax)
-            // .input('FQty',sql.Float , tblSalesDetail.FQty)
-            // .input('OBI',sql.NVarChar , tblSalesDetail.OBI)
-            // .input('BatchNo',sql.VarChar , tblSalesDetail.BatchNo)
-            // .execute('InserttblSalesDetail');
-            /////////////////////////////////////////////
-            //                                        //
-            //        Store Procedure                // 
-            //////////////////////////////////////////
-            .query(`INSERT INTO table_name ([dbo].[tblSalesDetail]
-                ([MemoNo]
-                ,[MemoType]
-                ,[DepotCode]
-                ,[ProductCode]
-                ,[TradePrice]
-                ,[ProductVAT]
-                ,[Quantity]
-                ,[TradeAmount]
-                ,[VATAmount]
-                ,[DiscountAmount]
-                ,[FlatRate]
-                ,[FMax]
-                ,[FQty]
-                ,[OBI]
-                ,[BatchNo])
-            VALUES (value1, value2, value3, ...);`);
+            .input('id', sql.BigInt, AllManagers.id)
+            .input('TeamCode', sql.VarChar, AllManagers.TeamCode)
+            .input('ASMCode', sql.VarChar, AllManagers.ASMCode)
+            .input('ASMName', sql.VarChar, AllManagers.ASMName)
+            .input('RSMCode', sql.VarChar, AllManagers.RSMCode)
+            .input('RSMName', sql.VarChar, AllManagers.RSMName)
+            .input('Region', sql.VarChar, AllManagers.Region)
+            .input('DSMCode', sql.VarChar, AllManagers.DSMCode)
+            .input('DSMName', sql.VarChar, AllManagers.DSMName)
+            .input('PSOCode', sql.VarChar, AllManagers.PSOCode)
+            .input('PSOName', sql.VarChar, AllManagers.PSOName)
+            .execute('dbo.testsss');
+            
         return insertProduct.recordsets;
     }
     catch (err) {

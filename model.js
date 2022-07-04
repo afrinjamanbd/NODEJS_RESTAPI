@@ -5,6 +5,23 @@ class AllTeams{
     }
 }
 
+class AllManagers{
+    constructor(id,TeamCode,ASMCode,ASMName,RSMCode,RSMName,Region,DSMCode,DSMName,PSOCode,PSOName){
+        this.id = id;
+        this.TeamCode = TeamCode;
+        this.ASMCode = ASMCode;
+        this.ASMName = ASMName;
+        this.RSMCode = RSMCode;
+        this.RSMName = RSMName;
+        this.Region = Region;
+        this.DSMCode = DSMCode;
+        this.DSMName = DSMName;
+        this.PSOCode = PSOCode;
+        this.PSOName = PSOName;
+    }
+}
+
+
 class Team_Dropdown{
     constructor(id,childid,name,code,parentid){
         this.id = id;
@@ -37,6 +54,7 @@ class tblSalesDetail{
 
 module.exports = {
     AllTeams : AllTeams,
+    AllManagers : AllManagers,
     Team_Dropdown :Team_Dropdown,
     tblSalesDetail : tblSalesDetail
 }

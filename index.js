@@ -62,6 +62,7 @@ router.route('/nested').get((request,response)=>{
 router.route('/new').post((request,response)=>{
 
     let order = {...request.body}
+    console.log(request.body)
 
     dboperations.addData(order).then(result => {
        response.status(201).json(result);
