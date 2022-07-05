@@ -70,6 +70,17 @@ router.route('/new').post((request,response)=>{
 
 })
 
+router.route('/new_delete').delete((request,response)=>{
+
+    let order = {...request.body}
+    console.log(request.body)
+
+    dboperations.del_Data(order).then(result => {
+       response.status(201).json(result);
+    })
+
+})
+
 var port = process.env.PORT || 8090;
 app.listen(port);
 console.log('API is runnning at ' + port);

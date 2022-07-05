@@ -115,12 +115,29 @@ async function addData(AllManagers) {
 
 }
 
+async function del_Data(AllManagers) {
+
+    try {
+        let pool = await sql.connect(config);
+        let insertProduct = await pool.request()
+            .input('id', sql.BigInt, AllManagers.id)
+            .execute('dbo.deletions');
+            
+        return insertProduct.recordsets;
+    }
+    catch (err) {
+        console.log(err);
+    }
+
+}
+
 module.exports = {
     get_team_dropdown : get_team_dropdown,
     get_all_teams : get_all_teams,
     get_anonymous : get_anonymous,
     get_join :get_join,
     get_nested : get_nested,
-    addData:addData
+    addData:addData,
+    del_Data : del_Data
 }
 
