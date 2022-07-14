@@ -59,6 +59,15 @@ router.route('/nested').get((request,response)=>{
     });
 });
 
+
+router.route('/get_nested_local').get((request,response)=>{
+    console.log('get_nested_local called');
+    dboperations.get_nested_local().then(result => {
+        response.json(result);
+    });
+});
+
+
 router.route('/new').post((request,response)=>{
 
     let order = {...request.body}

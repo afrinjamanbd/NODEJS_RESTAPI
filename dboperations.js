@@ -89,6 +89,75 @@ async  function get_nested(){
 }
 
 
+// async  function get_nested_local(){
+//     try{
+        
+//         let pool = await sql.connect(config);
+//         let products = await pool.request().query(`SELECT distinct 
+//         [Generic Code]
+//         FROM LocalMarket`);
+//         obj = products.recordset;
+//         console.log(obj)
+
+//         var count = Object.keys(obj).length;
+//         for (let i = 0; i < count; i++) {
+//             myobj = obj[i]
+//             let nest_obj = await pool.request().query(`SELECT [Month] where [Generic Code] = '${myobj['Generic Code']}'`);
+//             myobj["Generic Code"] = nest_obj.recordset;
+//             console.log(myobj);
+//             var countj = Object.keys(myobj).length;
+//             for (let j = 0; j < countj; j++) {
+//                 x_myobj = myobj[i]
+//                 let x_nest_obj = await pool.request().query(`SELECT [SKUCode], ,[Critical] where [Month] = '${x_myobj['Month']}'`);
+//                 x_myobj["Month"] = x_nest_obj.recordset;
+//             }
+//         }
+
+//         return obj;
+//     }
+//     catch(error){
+//         console.log(error);
+//     }   
+// }
+
+async  function get_nested_local(){
+    try{
+        
+        let pool = await sql.connect(config);
+        let products = await pool.request().query(`SELECT distinct 
+        [ASMCode],
+        [RSMCode],
+        [DSMCode] ,[DSMName] 
+        FROM AllManagers`);
+        obj = products.recordset;
+        console.log(obj[1])
+
+        var count = Object.keys(obj).length;
+        for (let i = 1; i < count; i++) {
+            myobj = obj[i]
+            let nest_obj = await pool.request().query(`SELECT [RSMCode] FROM AllManagers where [ASMCode] = '${myobj['ASMCode']}'`);
+            myobj["ASMCode"] = nest_obj.recordset;
+
+            var countj = Object.keys(myobj).length;
+            for (let j = 0; j < countj; j++) {
+                x_myobj = nest_obj.recordset[j]
+                let x_nest_obj = await pool.request().query(`SELECT [DSMCode] ,[DSMName] FROM AllManagers  where [RSMCode] = '${x_myobj['RSMCode']}'`);
+                x_myobj["RSMCode"] = x_nest_obj.recordset;
+            }
+        }
+
+        return obj;
+    }
+    catch(error){
+        console.log(error);
+    }   
+}
+
+
+
+
+
+
 async function addData(AllManagers) {
 
     try {
@@ -133,6 +202,7 @@ async function del_Data(AllManagers) {
 
 module.exports = {
     get_team_dropdown : get_team_dropdown,
+    get_nested_local : get_nested_local,
     get_all_teams : get_all_teams,
     get_anonymous : get_anonymous,
     get_join :get_join,
